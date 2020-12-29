@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+// import { Route } from 'react-router';
+import Accordian from './components/Accordian';
+import Search from './components/Search';
+import Dropdown from './components/Dropdown';
+import Translate from './components/Translate';
+import Route from './components/Route';
+import Header from './components/Header';
 
-function App() {
+export default () => {
+
+  const items = [
+    {
+      title: 'What is React?',
+      content: 'Its a javascript library'
+    },
+    {
+      title: 'Why use React?',
+      content: 'To have good reusable code'
+    }
+  ]
+
+  const options = [
+    {
+      label: 'this value is red',
+      value: 'red'
+    },
+    {
+      label: 'this value is green',
+      value: 'green'
+    },
+    {
+      label: 'this value is blue',
+      value: 'blue'
+    }
+  ]
+
+  const [selected, setSelected] = useState(options[0])
+  const [showDropdowm, setShowDropdowm] = useState(true)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Route path='/'>
+      <Accordian items={items}/>
+      </Route>
+      <Route path='/list'>
+      <Search/> 
+      </Route>
+      <Route path='/dropdown'>
+      <Dropdown 
+      selected= { selected }
+      onSelected={setSelected}
+      options={options}
+      label='Select Color'/> 
+      {/* <button onClick={()=>setShowDropdowm(!showDropdowm)} className='ui button'>Toggle Dropdown</button>
+      {showDropdowm ? 
+      <Dropdown 
+      selected= { selected }
+      onSelected={setSelected}
+      options={options}
+      label='Select Color'/> 
+      :
+      null
+      } */}
+      </Route>
+      <Route path='/translate'><Translate /></Route>
     </div>
-  );
+  )
 }
-
-export default App;
